@@ -22,3 +22,6 @@ st.write('https://pmc.ncbi.nlm.nih.gov/articles/PMC10948475')
 
 st.write('WHO Regional Office for Europe. (2024). Teens, screens and mental health. World Health Organization.')
 st.write('https://www.who.int/europe/news/item/25-09-2024-teens--screens-and-mental-health')
+
+st.write('Shamim, A. (2025, 10 mei). Social Media Addiction vs Relationships [Data set]. Kaggle.')
+st.write(' https://www.kaggle.com/datasets/adilshamim8/social-media-addiction-vs-relationships')

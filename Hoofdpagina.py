@@ -1,9 +1,6 @@
 import pandas as pd
 import streamlit as st
 
-green = "#27AE60"   # herstel
-orange = "#F39C12"  # actie
-
 data = pd.read_csv('data/Students.csv')
 
 st.set_page_config(page_title="Te veel van het goede: Sociale media en mentale gezondheid", layout="centered")
@@ -61,7 +58,7 @@ Niet alleen de geest, ook het lichaam lijdt onder overmatig schermgebruik. Stude
 """, unsafe_allow_html=True)
 
 st.markdown("""
-Een systematische review concludeerde dat het effect van sociale media op schoolprestaties deels via slaap verloopt<sup><a href="#voetnoot7">7</a></sup>. Wanneer slaapduur afneemt, dalen concentratie, motivatie en academische betrokkenheid — met meetbare gevolgen voor cijfers en studiedruk.
+Uit een kwantitatief onderzoek met enquêtes bleek dat het verband tussen sociale mediagebruik en academische betrokkenheid gedeeltelijk wordt bepaald verklaard door slechtere slaapkwaliteit en meer vermoeidheid<sup><a href="#voetnoot7">7</a></sup>. Wanneer slaapduur afneemt, dalen concentratie, motivatie en academische betrokkenheid — met meetbare gevolgen voor cijfers en studiedruk.
 """, unsafe_allow_html=True)
 
 # 6de alinea
@@ -76,11 +73,11 @@ st.write('_Visualisatie B: slaap duratie tegenover sociale media gebruik_')
 st.header("Een groeiende bedreiging voor welzijn")
 
 st.markdown("""
-Hoewel sociale media onmiskenbare voordelen bieden — sociale verbondenheid, informatie en ontspanning — tonen zowel data als literatuur dat te veel van het goede het welzijn van studenten ernstig kan aantasten. Wereldwijd geeft meer dan één op de tien jongeren aan problematisch socialemediagebruik te vertonen<sup><a href="#voetnoot8">8</a></sup>. En één op de vijf zegt dat sociale media hun mentale gezondheid negatief beïnvloeden<sup><a href="#voetnoot9">9</a></sup>.
+Hoewel sociale media voordelen aanbiedt, zoals sociale verbondenheid, informatie en ontspanning, tonen zowel data als literatuur dat te veel van het goede het welzijn van studenten ernstig kan aantasten. Wereldwijd geeft meer dan één op de tien jongeren aan problematisch socialemediagebruik te vertonen<sup><a href="#voetnoot8">8</a></sup>. En één op de vijf zegt dat sociale media hun mentale gezondheid negatief beïnvloeden<sup><a href="#voetnoot9">9</a></sup>.
 """, unsafe_allow_html=True)
 
 st.markdown("""
-De uitdaging ligt dus niet in het volledig vermijden van sociale media, maar in het herstellen van balans. Een gezonde digitale leefstijl — met bewust gebruik, vaste schermvrije momenten en aandacht voor slaap — blijkt een krachtig middel om welzijn en studieprestaties te beschermen.
+De uitdaging ligt dus niet in het volledig vermijden van sociale media, maar in het herstellen van balans. Een gezonde digitale leefstijl met bewust gebruik, vaste schermvrije momenten en meer belang voor slaap blijkt een krachtig middel om gezondheid en studieprestaties te beschermen.
 """)
 
 st.divider()
