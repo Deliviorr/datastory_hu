@@ -36,11 +36,11 @@ st.markdown(""" De onderstaande visualisaties zijn gebaseerd op data uit een onl
 st.header("Sociale media en mentale gezondheid")
 
 st.markdown("""
-De data laten een verontrustend patroon zien: studenten die dagelijks tot wel zeven uur op sociale media doorbrengen, scoren aanzienlijk lager op mentale gezondheid dan leeftijdsgenoten die minder tijd online besteden. Deze bevinding sluit aan bij internationale studies waarin langdurig socialemediagebruik wordt gekoppeld aan hogere niveaus van angst, depressie en stresssymptomen<sup><a href="#voetnoot1">1</a></sup>. Het ogenschijnlijk onschuldige scrollen blijkt vaak een bron van constante vergelijking, FOMO (fear of missing out) en cognitieve overbelasting<sup><a href="#voetnoot2">2</a></sup>.
+De data laten een verontrustend patroon zien: studenten die dagelijks tot wel zeven uur op sociale media doorbrengen, scoren aanzienlijk lager op mentale gezondheid dan leeftijdsgenoten die minder tijd online besteden. Deze bevinding sluit aan bij internationale studies waarin langdurig socialemediagebruik wordt gekoppeld aan hogere niveaus van angst, depressie en stresssymptomen.<sup><a href="#voetnoot1">1</a></sup> Het ogenschijnlijk onschuldige scrollen blijkt vaak een bron van constante vergelijking, FOMO (fear of missing out) en cognitieve overbelasting.<sup><a href="#voetnoot2">2</a></sup>
 """, unsafe_allow_html=True)
 
 st.markdown("""
-Een studie onder universiteitsstudenten toont aan dat de mate van socialmediagebruik significant samenhangt met scores op depressie- en angstschalen<sup><a href="#voetnoot3">3</a></sup>. Ook blijkt dat jongeren die sociale media als essentieel onderdeel van hun identiteit zien, kwetsbaarder zijn voor negatieve emoties wanneer ze geen toegang hebben tot hun accounts<sup><a href="#voetnoot4">4</a></sup>.
+Een studie onder universiteitsstudenten toont aan dat de mate van socialmediagebruik significant samenhangt met scores op depressie- en angstschalen.<sup><a href="#voetnoot3">3</a></sup> Ook blijkt dat jongeren die sociale media als essentieel onderdeel van hun identiteit zien, kwetsbaarder zijn voor negatieve emoties wanneer ze geen toegang hebben tot hun accounts.<sup><a href="#voetnoot4">4</a></sup>
 """, unsafe_allow_html=True)
 
 # 4de alinea
@@ -54,11 +54,11 @@ st.write('_Visualisatie A: mentale gezondheid tegenover sociale media gebruik_')
 st.header("Sociale media en slaap")
 
 st.markdown("""
-Niet alleen de geest, ook het lichaam lijdt onder overmatig schermgebruik. Studenten die urenlang blijven scrollen, stelen letterlijk slaap van zichzelf. Chronisch slaaptekort door laat-nachtelijk gebruik verhoogt het risico op stress, angst en depressieve klachten<sup><a href="#voetnoot5">5</a></sup>. Studies tonen aan dat schermtijd, vooral vlak voor het slapengaan, de slaapkwaliteit verlaagt en de inslaaptijd verlengt<sup><a href="#voetnoot6">6</a></sup>.
+Niet alleen de geest, ook het lichaam lijdt onder overmatig schermgebruik. Studenten die urenlang blijven scrollen, stelen letterlijk slaap van zichzelf. Chronisch slaaptekort door laat-nachtelijk gebruik verhoogt het risico op stress, angst en depressieve klachten.<sup><a href="#voetnoot5">5</a></sup> Studies tonen aan dat schermtijd, vooral vlak voor het slapengaan, de slaapkwaliteit verlaagt en de inslaaptijd verlengt.<sup><a href="#voetnoot6">6</a></sup>
 """, unsafe_allow_html=True)
 
 st.markdown("""
-Uit een kwantitatief onderzoek met enquêtes bleek dat het verband tussen sociale mediagebruik en academische betrokkenheid gedeeltelijk wordt bepaald verklaard door slechtere slaapkwaliteit en meer vermoeidheid<sup><a href="#voetnoot7">7</a></sup>. Wanneer slaapduur afneemt, dalen concentratie, motivatie en academische betrokkenheid — met meetbare gevolgen voor cijfers en studiedruk.
+Uit een kwantitatief onderzoek met enquêtes bleek dat het verband tussen sociale mediagebruik en academische betrokkenheid gedeeltelijk wordt bepaald verklaard door slechtere slaapkwaliteit en meer vermoeidheid.<sup><a href="#voetnoot7">7</a></sup> Wanneer slaapduur afneemt, dalen concentratie, motivatie en academische betrokkenheid, met meetbare gevolgen voor cijfers en studiedruk.
 """, unsafe_allow_html=True)
 
 # 6de alinea
@@ -73,7 +73,7 @@ st.write('_Visualisatie B: slaap duratie tegenover sociale media gebruik_')
 st.header("Een groeiende bedreiging voor welzijn")
 
 st.markdown("""
-Hoewel sociale media voordelen aanbiedt, zoals sociale verbondenheid, informatie en ontspanning, tonen zowel data als literatuur dat te veel van het goede het welzijn van studenten ernstig kan aantasten. Wereldwijd geeft meer dan één op de tien jongeren aan problematisch socialemediagebruik te vertonen<sup><a href="#voetnoot8">8</a></sup>. En één op de vijf zegt dat sociale media hun mentale gezondheid negatief beïnvloeden<sup><a href="#voetnoot9">9</a></sup>.
+Hoewel sociale media voordelen aanbiedt, zoals sociale verbondenheid, informatie en ontspanning, tonen zowel data als literatuur dat te veel van het goede het welzijn van studenten ernstig kan aantasten. Wereldwijd geeft meer dan één op de tien jongeren aan problematisch socialemediagebruik te vertonen.<sup><a href="#voetnoot8">8</a></sup> En één op de vijf zegt dat sociale media hun mentale gezondheid negatief beïnvloeden.<sup><a href="#voetnoot9">9</a></sup>
 """, unsafe_allow_html=True)
 
 st.markdown("""
