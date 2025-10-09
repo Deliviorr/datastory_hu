@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+import pycountry_convert as pc
 
 data = pd.read_csv('data/Students.csv')
 
@@ -70,6 +71,70 @@ avg_data2 = data.groupby("Sleep_Hours_Per_Night", as_index=False)["Avg_Daily_Usa
 st.bar_chart(data=avg_data2, x ="Sleep_Hours_Per_Night", y ="Avg_Daily_Usage_Hours", color=["#f63366"],x_label="Slaap duur", y_label="Gemiddelde dagelijkse schermtijd (uren)")
 st.write('_Visualisatie B: slaap duratie tegenover sociale media gebruik_')
 
+st.subheader("Visualisatie C: Interactieve tabel")
+st.write('Deze interactieve tabel toont hoe gemiddelde schermtijd, mentale gezondheid en academische prestaties')
+
+# Subset en hernoemen
+subset = data[['Country', 'Avg_Daily_Usage_Hours', 'Mental_Health_Score', 'Affects_Academic_Performance']]
+df = subset.rename(
+    columns={
+        "Country": "Land",
+        "Avg_Daily_Usage_Hours": "Gem. schermtijd (uren/dag)",
+        "Mental_Health_Score": "Mentale gezondheidsscore (0–10)",
+        "Affects_Academic_Performance": "Beïnvloedt schoolprestaties (%)",
+    }
+)
+
+# Continent toevoegen
+def get_continent(country):
+    try:
+        country_code = pc.country_name_to_country_alpha2(country, cn_name_format="default")
+        continent_code = pc.country_alpha2_to_continent_code(country_code)
+        continent_name = {
+            "AF": "Afrika",
+            "AS": "Azië",
+            "EU": "Europa",
+            "NA": "Noord-Amerika",
+            "OC": "Oceanië",
+            "SA": "Zuid-Amerika",
+        }.get(continent_code, "Onbekend")
+        return continent_name
+    except Exception:
+        return "Onbekend"
+
+df["Continent"] = df["Land"].apply(get_continent)
+
+# Numerieke kolommen
+num_cols = ["Gem. schermtijd (uren/dag)", "Mentale gezondheidsscore (0–10)"]
+for col in num_cols:
+    df[col] = pd.to_numeric(df[col], errors='coerce')
+
+# Categorie kolom naar 0/1
+df["AAP_Yes"] = df["Beïnvloedt schoolprestaties (%)"].astype(str).str.strip().str.lower().apply(lambda x: 1 if x == "yes" else 0)
+
+# Filterlijst
+continenten = sorted(df["Continent"].unique())
+selectie = st.multiselect("Filter op continent", continenten, default=continenten)
+
+# Filteren
+filtered_df = df[df["Continent"].isin(selectie)]
+
+# Groeperen per continent
+grouped_df = filtered_df.groupby("Continent", as_index=False).agg({
+    "Gem. schermtijd (uren/dag)": "mean",
+    "Mentale gezondheidsscore (0–10)": "mean",
+    "AAP_Yes": "mean"
+})
+
+# Percentage Yes
+grouped_df["Beïnvloedt schoolprestaties (%)"] = (grouped_df["AAP_Yes"] * 100).round(2)
+grouped_df = grouped_df.drop(columns="AAP_Yes")
+
+# Tabel tonen
+st.dataframe(
+    grouped_df.sort_values("Mentale gezondheidsscore (0–10)", ascending=False),
+    use_container_width=True
+)
 st.header("Een groeiende bedreiging voor welzijn")
 
 st.markdown("""
@@ -96,4 +161,3 @@ st.markdown("""
 <li id="voetnoot9">Pew Research Center (2025). <i>Teens, Social Media and Mental Health.</i></li>
 </ol>
 """, unsafe_allow_html=True)
-
