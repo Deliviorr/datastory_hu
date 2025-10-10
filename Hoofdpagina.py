@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 import pycountry_convert as pc
+import altair as alt
 
 data = pd.read_csv('data/Students.csv')
 
@@ -48,7 +49,30 @@ Een studie onder universiteitsstudenten toont aan dat de mate van socialmediageb
 st.subheader("Visualisatie A: Mentale gezondheid tegenover dagelijks gebruik van sociale media")
 st.write('De data laat een alarmerend patroon zien: studenten die dagelijks tot wel 7 uur op sociale media zitten, scoren opvallend lager op mentale gezondheid dan hun leeftijdsgenoten die minder tijd online besteden. Scrollen op sociale media lijkt in eerste instantie onschuldig, maar kan doorgroeien tot grotere mentale problemen. ')
 avg_data1 = data.groupby("Mental_Health_Score", as_index=False)["Avg_Daily_Usage_Hours"].mean()
-st.bar_chart(data=avg_data1, x ="Mental_Health_Score", y ="Avg_Daily_Usage_Hours", color=["#f63366"],x_label="Mentale Gezondheidsscore", y_label="Gemiddelde dagelijkse schermtijd (uren)")
+
+def get_color(score):
+    if score <= 5:
+        return '#f63366'
+    elif score <= 7:
+        return '#ff884d'
+    else:
+        return '#33f6b0'
+
+
+avg_data1['kleur'] = avg_data1['Mental_Health_Score'].apply(get_color)
+
+chart = (
+    alt.Chart(avg_data1)
+    .mark_bar()
+    .encode(
+        x=alt.X("Mental_Health_Score:O", title="Mentale Gezondheidsscore"),
+        y=alt.Y("Avg_Daily_Usage_Hours:Q", title="Gemiddelde dagelijkse schermtijd (uren)"),
+        color=alt.Color("kleur:N", scale=None)  
+    )
+    .properties(width=600, height=400)
+)
+st.altair_chart(chart, use_container_width=True)
+
 st.write('_Visualisatie A: mentale gezondheid tegenover sociale media gebruik_')
 
 # 5de alinea
@@ -67,8 +91,30 @@ st.subheader("Visualisatie B: Slaapduur tegenover dagelijks gebruik van sociale 
 
 st.write('Studenten die urenlang door sociale media scrollen, stelen slaap van zichzelf. Nachten achter elkaar wordt hun lichaam uitgeput. Chronisch slaaptekort door eindeloos scrollen verhoogt het risico op stress, angst en depressie. Een gewoonte dat oorspronkelijk onschuldig lijkt, groeit toch tot een merkwaardige bedreiging voor welzijn.')
 data['Sleep_Hours_Per_Night'] = data['Sleep_Hours_Per_Night'].round()
+
+def get_color1(score):
+    if score <= 5:
+        return '#f63366'
+    elif score <= 7:
+        return '#ff884d'
+    else:
+        return '#33f6b0'
+
 avg_data2 = data.groupby("Sleep_Hours_Per_Night", as_index=False)["Avg_Daily_Usage_Hours"].mean()
-st.bar_chart(data=avg_data2, x ="Sleep_Hours_Per_Night", y ="Avg_Daily_Usage_Hours", color=["#f63366"],x_label="Slaap duur", y_label="Gemiddelde dagelijkse schermtijd (uren)")
+
+avg_data2['kleur'] = avg_data2['Sleep_Hours_Per_Night'].apply(get_color1)
+
+chart = (
+    alt.Chart(avg_data2)
+    .mark_bar()
+    .encode(
+        x=alt.X("Sleep_Hours_Per_Night:O", title="Slaap duur"),
+        y=alt.Y("Avg_Daily_Usage_Hours:Q", title="Gemiddelde dagelijkse schermtijd (uren)"),
+        color=alt.Color("kleur:N", scale=None)
+    )
+)
+st.altair_chart(chart, use_container_width=True)
+
 st.write('_Visualisatie B: slaap duratie tegenover sociale media gebruik_')
 
 st.subheader("Visualisatie C: Interactieve tabel")
