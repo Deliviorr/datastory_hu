@@ -175,27 +175,27 @@ grouped_df = filtered_df.groupby("Continent", as_index=False).agg({
 # --- Functies voor kleurregels ---
 def kleur_mentale_gezondheid(val):
     if val < 4:
-        kleur = '#ff4d4d'   # rood
+        kleur = '#f63366'   
     elif 4 <= val < 7:
-        kleur = '#ffcc00'   # oranje
+        kleur = '#ff884d'   
     else:
-        kleur = '#66cc66'   # groen
+        kleur = '#33f6b0'   
     return f'background-color: {kleur}; color: black;'
 
 def kleur_schermtijd(val):
     if val <= 4:
-        kleur = '#66cc66'   # groen
+        kleur = '#33f6b0'   
     elif 5 <= val <= 6:
-        kleur = '#ffcc00'   # oranje
+        kleur = '#ff884d'   
     else:
-        kleur = '#ff4d4d'   # rood
+        kleur = '#f63366'   
     return f'background-color: {kleur}; color: black;'
 
 def kleur_school(val):
     if val > 50:
-        kleur = '#ff4d4d'   # rood
+        kleur = '#f63366'   
     else:
-        kleur = '#66cc66'   # groen
+        kleur = '#33f6b0'   
     return f'background-color: {kleur}; color: black;'
 
 
@@ -213,21 +213,21 @@ grouped_df = grouped_df.sort_values("Mentale gezondheidsscore (0–10)", ascendi
 # --- Styling toepassen ---
 styled_df = (
     grouped_df.style
-    .applymap(kleur_mentale_gezondheid, subset=['Mentale gezondheidsscore (0–10)'])
-    .applymap(kleur_schermtijd, subset=['Gem. schermtijd (uren/dag)'])
-    .applymap(kleur_school, subset=['Beïnvloedt schoolprestaties (%)'])
+    .map(kleur_mentale_gezondheid, subset=['Mentale gezondheidsscore (0–10)'])
+    .map(kleur_schermtijd, subset=['Gem. schermtijd (uren/dag)'])
+    .map(kleur_school, subset=['Beïnvloedt schoolprestaties (%)'])
     .format({
         'Mentale gezondheidsscore (0–10)': "{:.1f}",
         'Gem. schermtijd (uren/dag)': "{:.1f}",
         'Beïnvloedt schoolprestaties (%)': "{:.1f}"
     })
+    .set_table_styles([{'selector': 'table', 'props': [('width', '100%')]}]) 
 )
 
-
 # Tabel tonen
-st.dataframe(
-    styled_df,
-    use_container_width=True,
+st.markdown(
+    f'<div style="width:100%; overflow-x:auto;">{styled_df.to_html(escape=False, index=False)}</div>',
+    unsafe_allow_html=True
 )
 st.header("Een groeiende bedreiging voor welzijn")
 
