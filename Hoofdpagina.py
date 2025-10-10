@@ -110,7 +110,7 @@ for col in num_cols:
     df[col] = pd.to_numeric(df[col], errors='coerce')
 
 # Categorie kolom naar 0/1
-df["AAP_Yes"] = df["Beïnvloedt schoolprestaties (%)"].astype(str).str.strip().str.lower().apply(lambda x: 1 if x == "yes" else 0)
+df["Yes"] = df["Beïnvloedt schoolprestaties (%)"].astype(str).str.strip().str.lower().apply(lambda x: 1 if x == "yes" else 0)
 
 # Filterlijst
 continenten = sorted(df["Continent"].unique())
@@ -123,17 +123,65 @@ filtered_df = df[df["Continent"].isin(selectie)]
 grouped_df = filtered_df.groupby("Continent", as_index=False).agg({
     "Gem. schermtijd (uren/dag)": "mean",
     "Mentale gezondheidsscore (0–10)": "mean",
-    "AAP_Yes": "mean"
+    "Yes": "mean"
 })
 
-# Percentage Yes
-grouped_df["Beïnvloedt schoolprestaties (%)"] = (grouped_df["AAP_Yes"] * 100).round(2)
-grouped_df = grouped_df.drop(columns="AAP_Yes")
+# --- Functies voor kleurregels ---
+def kleur_mentale_gezondheid(val):
+    if val < 4:
+        kleur = '#ff4d4d'   # rood
+    elif 4 <= val < 7:
+        kleur = '#ffcc00'   # oranje
+    else:
+        kleur = '#66cc66'   # groen
+    return f'background-color: {kleur}; color: black;'
+
+def kleur_schermtijd(val):
+    if val <= 4:
+        kleur = '#66cc66'   # groen
+    elif 5 <= val <= 6:
+        kleur = '#ffcc00'   # oranje
+    else:
+        kleur = '#ff4d4d'   # rood
+    return f'background-color: {kleur}; color: black;'
+
+def kleur_school(val):
+    if val > 50:
+        kleur = '#ff4d4d'   # rood
+    else:
+        kleur = '#66cc66'   # groen
+    return f'background-color: {kleur}; color: black;'
+
+
+# --- Berekeningen en afronden ---
+grouped_df.loc[:, ['Mentale gezondheidsscore (0–10)', 'Gem. schermtijd (uren/dag)']] = (
+    grouped_df[['Mentale gezondheidsscore (0–10)', 'Gem. schermtijd (uren/dag)']].round()
+)
+
+grouped_df["Beïnvloedt schoolprestaties (%)"] = (grouped_df["Yes"] * 100).round(1)
+grouped_df = grouped_df.drop(columns="Yes")
+
+# Sorteren op mentale score
+grouped_df = grouped_df.sort_values("Mentale gezondheidsscore (0–10)", ascending=False)
+
+# --- Styling toepassen ---
+styled_df = (
+    grouped_df.style
+    .applymap(kleur_mentale_gezondheid, subset=['Mentale gezondheidsscore (0–10)'])
+    .applymap(kleur_schermtijd, subset=['Gem. schermtijd (uren/dag)'])
+    .applymap(kleur_school, subset=['Beïnvloedt schoolprestaties (%)'])
+    .format({
+        'Mentale gezondheidsscore (0–10)': "{:.1f}",
+        'Gem. schermtijd (uren/dag)': "{:.1f}",
+        'Beïnvloedt schoolprestaties (%)': "{:.1f}"
+    })
+)
+
 
 # Tabel tonen
 st.dataframe(
-    grouped_df.sort_values("Mentale gezondheidsscore (0–10)", ascending=False),
-    use_container_width=True
+    styled_df,
+    use_container_width=True,
 )
 st.header("Een groeiende bedreiging voor welzijn")
 
